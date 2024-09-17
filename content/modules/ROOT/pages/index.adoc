@@ -1,11 +1,11 @@
-[.text-justify]
-= Narrative: Event Driven Ansible with OpenShift
-:imagesdir: ../images
+
+= {lab_name}
+:navtitle: Narrative
+:imagesdir: ../assets/images
 :numbered:
-:toc:
 
 
-
+[.text-justify]
 == Demo Platform (demo.redhat.com)
 
 === Catalog Item

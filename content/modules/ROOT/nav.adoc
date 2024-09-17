@@ -1,0 +1,4 @@
+
+.Event Driven Ansible with OpenShift Demo
+* xref:index.adoc[]
+
