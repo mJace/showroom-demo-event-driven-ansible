@@ -100,8 +100,9 @@ image::event_driven_ansible_architecture.jpg[Event-Driven Ansible Architecture, 
 In order to show demo, We need to open couple of browser tabs for-
 
 * Vscode server 
-* Automation Controller
-* EDA Controller
+* Ansible Automation Platform
+** Automation Controller
+** Event Driven Ansible
 * [Optional] OpenShift Console
 
 [.text-justify]
@@ -114,7 +115,7 @@ In order to show demo, We need to open couple of browser tabs for-
 +
 image:vscode_login.jpg[VScode Login page, 95%]
 
-.  Go to info page click on Automation controller  link, use username and password provided in the table to login. 
+.  Go to info page click on Ansible Automation Platform link, use username and password provided in the table to login. 
 
 +
 NOTE: Sometimes copying and pasting the password may not work. If you're unable to log in, try typing the password manually, character by character, as this might resolve the issue.
@@ -122,9 +123,6 @@ NOTE: Sometimes copying and pasting the password may not work. If you're unable 
 +
 image:ac_login.jpg[Automation Controller Login page, 95%]
 
-.  Go to info page click on Technology Preview - Event-driven Ansible Controller link, use username and password provided in the table to login.
-+
-image:eda_login.jpg[Event-Driven Ansible Controller Login page, 95%]
 
 .  [Optionally] Go to info page click on OpenShift Console  link, use username and password provided in the table to login. 
 +
@@ -138,22 +136,15 @@ image:oc_login_2.jpg[OpenShift Login page, 95%]
 
 |{counter:srn}|
 [.text-justify]
-Prepare Automation controller to watch event triggered
+Log in to the Ansible Automation Platform to monitor jobs and triggered events.
 |*Action:*
 [.text-justify]
-.  Go to the Automation controller console and click on jobs under Views. Jobs section will show all triggered job templates status by the EDA.
+.  Go to the Automation Execution (Automation Controller) and click on jobs. Jobs section will show all triggered job templates status by the Event-driven Ansible.
 +
 image:ac_jobs.jpg[Automation Controller Jobs, 95%]
 
 
-
-
-|{counter:srn}|  
-[.text-justify]
-Prepare EDA controller to watch Rulebook Activations and logs
-|*Action:*
-[.text-justify]
-.  Go to the EDA Controller console and click on Rulebook Activations  under Views. The Rulebook Activations section shows all Rulebook Activations.
+.  Go to the Automation Decision (Event Driven Aansible) and click on Rulebook Activations . The Rulebook Activations section shows all Rulebook Activations.
 +
 image:eda_rulebook_activations_v2.png[Event-Driven Ansible Controller Rulebooks, 95%]
 
@@ -182,7 +173,7 @@ To trigger set resource quota, we run oc command with 1-test-resource-quota-on-n
 New namespace creation will eventually trigger a set resource quota event. As an action for the event it will set resource quota on created rocketchat namespace.
  
 [.text-justify]
-To observe, we can check EDA controller Rulebook Activate history and automation controller jobs.
+To observe, we can check Automation Decision (Event Driven Aansible) Rulebook Activate and Automation Execution (Automation Controller) jobs.
 
 [.text-justify]
 To verify the changes run OpenShift oc command line to check resource quota on created rocketchat namespace. 
@@ -203,24 +194,25 @@ image:eda_vscode_terminal.jpg[VScode terminal, 100%]
 
 *Observe:*
 [.text-justify]
-. Observe EDA Controller Set Resource Quota On Namespace Rulebook Activation has caught the event for new namespace and triggered the action. 
+. Observe Automation Decision (Event Driven Aansible) Set Resource Quota On Namespace Rulebook Activation has caught the event for new namespace and triggered the action. 
 
 
 
-. Click on Set Resource Quota on Namespace Rulebook Activation.
+// . Click on Set Resource Quota on Namespace Rulebook Activation.
+
 +
 image:eda_trigger_1.jpg[Rulebook Trigger, 95%]
 
-. Click on History.
+// . Click on History.
 
-+
-image:eda_trigger_2.jpg[Rulebook Trigger, 95%]
+// +
+// image:eda_trigger_2.jpg[Rulebook Trigger, 95%]
 
-. Now click on Set Resource Quota on Namespace to view the EDA event logs.
-+
-image:eda_trigger_3.jpg[Rulebook Trigger, 95%]
+// . Now click on Set Resource Quota on Namespace to view the EDA event logs.
+// +
+// image:eda_trigger_3.jpg[Rulebook Trigger, 95%]
 
-. Observe the Automation controller has a new job running.
+. Observe the Automation Execution (Automation Controller) has a new job running.
 +
 image:rq_ac_job.jpg[Automation Controller Job, 95%]
 
@@ -240,7 +232,7 @@ oc get resourcequota -n rocketchat
 In order to trigger a create volume snapshot of newly added pvc by Event-driven ansible event.
 
 [.text-justify]
-We go to the second terminal and make sure we are still in the test-events directory which contains three yaml files of OpenShift object definition.
+We go to the terminal and make sure we are still in the test-events directory which contains three yaml files of OpenShift object definition.
 
 [.text-justify]
 To trigger the create volume snapshot, we run oc command with 2-test-volume-snapshot.yml file which creates rocketchat app, database and persistent volume claim in rocketchat namespace.
@@ -249,7 +241,7 @@ To trigger the create volume snapshot, we run oc command with 2-test-volume-snap
 New persistent volume claim creation will eventually trigger a create volume snapshot event. As an action for the event it will create a snapshot of the persistentvolumeclaim in the  rocketchat namespace.
  
 [.text-justify]
-To observe, we can check EDA controller Rulebook Activate history and automation controller jobs.
+To observe, we can check Automation Decision (Event Driven Aansible) Rulebook Activate and Automation Execution (Automation Controller) jobs.
 
 [.text-justify]
 To verify the changes run OpenShift oc command to get the volume snapshot list in  rocketchat namespace. 
@@ -267,9 +259,9 @@ oc create -f 2-test-volume-snapshot.yml
 
 *Observe:*
 [.text-justify]
-.   Observe EDA Controller Create Volume Snapshot Rulebook Activation has caught the event for new persistentvolumeclaim which triggered the action.
+.   Observe Automation Decision (Event Driven Aansible) Create Volume Snapshot Rulebook Activation has caught the event for new persistentvolumeclaim which triggered the action.
 
-.  Observe the Automation controller has a new job running.
+.  Observe the Automation Execution (Automation Controller) has a new job running.
 
 .  Observe that the new persistentvolumeclaim has a screenshot  in rocketchat namespace.  Run the following command on the second terminal. 
 +
@@ -282,15 +274,15 @@ oc get volumesnapshot -n rocketchat
 |{counter:srn}|
 
 [.text-justify]
-In order to trigger a patch route of newly added route  by Event-driven ansible event.
+In order to trigger a patch route of newly added route by Event-driven ansible event.
 [.text-justify]
-We go to the second terminal and make sure we are still in the test-events directory which contains three yaml files of OpenShift object definition.
+We go to the terminal and make sure we are still in the test-events directory which contains three yaml files of OpenShift object definition.
 [.text-justify]
 To trigger the patch route, we run oc command with 3-test-route-with-cert.yml file which creates route for rocketchat app in rocketchat namespace.
 [.text-justify]
 New route creation will eventually trigger a patch route event. As an action for the event it will patch the route with a signed certificate in the  rocketchat namespace.
 [.text-justify]
-To observe, we can check EDA controller Rulebook Activate history and automation controller jobs.
+To observe, we can check Automation Decision (Event Driven Aansible) Rulebook Activate history and Automation Execution (Automation Controller) jobs.
 
 [.text-justify]
 To verify the changes run OpenShift oc command to get the route in rocketchat namespace. 
@@ -310,11 +302,11 @@ oc create -f 3-test-route-with-cert.yml
 
 *Observe:* 
 [.text-justify]
-. Observe EDA Controller Patch Route With Cert Rulebook Activation has caught the event for the new route and triggered the action.
+. Observe Automation Decision (Event Driven Aansible) Patch Route With Cert Rulebook Activation has caught the event for the new route and triggered the action.
 
-. Observe the Automation controller has a new job running.
+. Observe the Automation Execution (Automation Controller) has a new job running.
 
-. Observe that the new route has been patched  with a certificate.  Run the following command on the second terminal.
+. Observe that the new route has been patched  with a certificate.  Run the following command on the terminal.
 
 +
 [source,shell]
