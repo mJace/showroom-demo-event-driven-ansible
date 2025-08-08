@@ -315,7 +315,254 @@ oc get route -n rocketchat -o yaml \| grep cert-manager
 ----
 
 
+|{counter:srn}|
+[.text-justify]
+我們現在將建立一個新任務，讓 Event-driven Ansible 能夠觸發新的動作。
+當發生警告（Warning）或非健康（Unhealthy）事件時，將觸發 EDA 去收集一份 inspect 檔案，以供後續調查使用。
+
+首先必須只定一台機器作為執行oc指令的主機，因此需要在AAP加入此機器的相關設定。
+
+
+|*Action:*
+[.text-justify]
+Create a new inventory in Ansible Automation Platform (AAP) to add the machine that will execute the oc commands. 
+
+image:aap_add_inventory.jpg[Create Inventory, 95%]
+
+image:aap_add_inventory2.png[Create Inventory, 95%]
+
+Add host in the inventory
+
+image:https://hackmd.io/_uploads/Hyh6HRf_ee.jpg[]
+
+image:https://hackmd.io/_uploads/B1WhGvtJT.png[]
+
+image:https://hackmd.io/_uploads/H1pIbPY1a.png[]
+
+Create credential for bastion
+
+image:https://hackmd.io/_uploads/BJnZUCzOee.jpgp[]
+image:https://hackmd.io/_uploads/SyojI0M_ge.jpg[]
+
+Create Host group in bastion inventory and add bastion to the host group
+
+image:https://hackmd.io/_uploads/BJ175QXdel.png[]
+image:https://hackmd.io/_uploads/BJBRDX7Oel.png[]
+image:https://hackmd.io/_uploads/BkEm_7m_ex.png[]
+image:https://hackmd.io/_uploads/r1SsdX7_ge.png[]
+image:https://hackmd.io/_uploads/BkVxtmm_xe.png[]
+image:https://hackmd.io/_uploads/HJNWFQQOgg.png[]
+
+|{counter:srn}|
+[.text-justify]
+接下來我們要加入自定的Playbook，這個Playbook會在事件發生時觸發，並執行oc inspect。蒐集需要的檔案。
+
+
+|*Action:*
+[.text-justify]
+Create new playbook for oc adm inspect
+
+image:https://hackmd.io/_uploads/HJkjidtJT.png[]
+image:https://hackmd.io/_uploads/Bk6siOt1T.png[]
+
+Clone event-driven-ansible repo in your VScode terminal
+[source,shell]
+----
+cd ~
+git clone https://gitea.apps.cluster-7f74v.7f74v.sandbox734.opentlc.com/lab-user/event-driven-ansible.git
+----
+
+image:https://hackmd.io/_uploads/B1TgHeXuxx.png[]
+
+Under event-driven-ansible/automation_controller create playbook `oc-inspect.yml`
+image:https://hackmd.io/_uploads/ry3mHx7_eg.png[]
+填入以下內容
+[source,shell]
+----
+- name: oc adm inspect
+  hosts: bastion
+  gather_facts: no
+  vars:
+    ns: "{{ ansible_eda.event.resource.metadata.namespace }}"
+
+  tasks:
+    - name: Create inspect file
+      shell:
+         "oc adm inspect ns/{{ ns }} --kubeconfig /home/lab-user/.kube/config"
+      register: lsout
+----
+
+push git project
+[source,shell]
+----
+cd ~/event-driven-ansible
+git add *
+git commit -am "playbook for oc adm inspect"
+git push
+----
+
+VScode will ask you to login to gittea.
+image:https://hackmd.io/_uploads/SkdewgXdlg.png[]
+
+
+After push completed, Check your commit ID.
+image:https://hackmd.io/_uploads/BJ65w0Gdeg.jpg[]
+
+|{counter:srn}|
+[.text-justify]
+推送新增的腳本後，我們回到AAP的主要頁面，針對剛剛的腳本設定一個新的Job Template。
+|*Action:*
+[.text-justify]
+
+更新AAP Project
+
+image:https://hackmd.io/_uploads/BkoswCzOlg.jpg[]
+
+新增template取名為 `oc-inspect` 
+
+image:https://hackmd.io/_uploads/S11ydRfOlg.jpg[]
+image:https://hackmd.io/_uploads/rkOO_CfOee.jpg[]
+
+
+|{counter:srn}|
+[.text-justify]
+完成Template後，我們要設定EDA的Rulebook，讓EDA能夠觸發Job Template。
+|*Action:*
+[.text-justify]
+
+On Vscode console, switch to eda-rulebooks/rulebooks
+and create a file named `oc-inspect.yml`
+
+image:https://hackmd.io/_uploads/rJhIIeQ_ee.png[]
+
+
+Edit oc-inspect.yml with following 
+
+[source,shell]
+----
+---
+- name: Listen for unhealthy+warning event
+  hosts: all
+  sources:
+    - sabre1041.eda.k8s:
+        api_version: v1
+        kind: Event
+        namespace: jace #自行替換成新預計的ns名稱
+  rules:
+    - name: Debug
+      condition: 
+        event.resource.reason == "Unhealthy" and event.resource.type == "Warning"
+      throttle:
+        once_within: 5 minutes
+        group_by_attributes:
+          - event.resource.metadata.namespace
+          - event.resource.involvedObject.name
+      action:
+        run_job_template:
+          name: oc-inspect #必須對應AAP內的template 名稱
+          organization: Default
+----
+
+#### Commit and push your rulebook
+In the vscode terminal
+
+```bash=
+cd ~/eda-rulebooks
+git add *
+git commit -am "rulebook for oc adm inspect"
+git push
+```
+
+VScode will ask you to login to gittea.
+image:https://hackmd.io/_uploads/SkdewgXdlg.png[]
+
+
+### Create Rulebook Activcation in AAP
+
+#### Sync-Rulebook project again
+
+image:https://hackmd.io/_uploads/rkQ4uemdlg.png[]
+
+Click `Create rulebook activation` 
+
+image:https://hackmd.io/_uploads/BJjWOgQ_ll.png[]
+
+Select and fill like following example
+image:https://hackmd.io/_uploads/Bk7qOxmulg.png[]
+
+After that you can see your rule is activated
+image:https://hackmd.io/_uploads/r1kndxmOel.png[]
+
+
+|{counter:srn}|
+[.text-justify]
+我們可以部屬一個新的應用程式，並故意讓它的健康狀態變成 Unhealthy，這樣就可以觸發 EDA 的 Rulebook。
+|*Action:*
+[.text-justify]
+
+On you VScode terminal, create a new project and deploy a pod with liveness probe.
+```
+oc new-project jace
+```
+
+```
+vim pod-liveness.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: liveness
+    securityContext:
+      allowPrivilegeEscalation: false
+      seccompProfile:
+        type: RuntimeDefault
+      capabilities:
+        drop:
+        - ALL
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    image: k8s.gcr.io/busybox
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+```
+
+```bash=
+oc create -f pod-liveness.yml`
+```
+
+
+image:https://hackmd.io/_uploads/ryGBC_typ.png[]
+
+image:https://hackmd.io/_uploads/rkbtCOKy6.png[]
+
+
+### 驗證inspect是否成功
+
+image:https://hackmd.io/_uploads/HkHPeYY16.png[]
+
+image:https://hackmd.io/_uploads/SJBulFYJ6.png[]
+
 |====
+
+
 
 
 == Troubleshooting
