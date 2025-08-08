@@ -421,7 +421,10 @@ image:https://hackmd.io/_uploads/BkoswCzOlg.jpg[]
 新增template取名為 `oc-inspect` 
 
 image:https://hackmd.io/_uploads/S11ydRfOlg.jpg[]
+
+填入對應的內容
 image:https://hackmd.io/_uploads/rkOO_CfOee.jpg[]
+一定要勾選Prompt on launch，這樣才能在EDA觸發時，帶入變數到playbook內。
 
 
 |{counter:srn}|
@@ -545,7 +548,7 @@ spec:
 ```
 
 ```bash=
-oc create -f pod-liveness.yml`
+oc create -f pod-liveness.yml
 ```
 
 
