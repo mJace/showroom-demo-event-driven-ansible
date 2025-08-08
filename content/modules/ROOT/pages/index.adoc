@@ -480,9 +480,8 @@ VScode will ask you to login to gittea.
 image:https://hackmd.io/_uploads/SkdewgXdlg.png[]
 
 
-## Create Rulebook Activcation in AAP
-
-#### Sync-Rulebook project again
+*Create Rulebook Activcation in AAP*
+Sync-Rulebook project again
 
 image:https://hackmd.io/_uploads/rkQ4uemdlg.png[]
 
