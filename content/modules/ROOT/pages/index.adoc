@@ -562,10 +562,38 @@ image:https://hackmd.io/_uploads/HkHPeYY16.png[]
 
 image:https://hackmd.io/_uploads/SJBulFYJ6.png[]
 
+|{counter:srn}|
+[.text-justify]
+接下來我們要實作透過EDA串接Gemini AI，讓EDA能夠在事件發生時，透過Gemini AI來回應。
+|*Action:*
+
+[On Bastion or your VScode terminal] Install Gemini-CLI
+1. Install Node.JS
+[source,bash]
+----
+# Download and install nvm:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+# Download and install Node.js:
+nvm install 22
+
+# Verify the Node.js version:
+node -v # Should print "v22.17.1".
+nvm current # Should print "v22.17.1".
+
+# Verify npm version:
+npm -v # Should print "10.9.2".
+----
+
+2. Install Gemini-CLI
+[source,shell]
+----
+npm install -g @google/gemini-cli
+----
+
+
 |====
-
-
-
 
 == Troubleshooting
 
