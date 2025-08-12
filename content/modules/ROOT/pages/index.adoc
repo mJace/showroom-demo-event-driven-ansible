@@ -573,7 +573,7 @@ image:https://hackmd.io/_uploads/SJBulFYJ6.png[]
 
 |{counter:srn}|
 [.text-justify]
-=== Lab 5 - EDA Gemini AI
+=== Lab 5 - EDA Gemini AI 分析問題
 [.text-justify]
 接下來我們要實作透過EDA串接Gemini AI,讓EDA能夠在事件發生時,透過Gemini AI來分析問題。
 |*Action:*
