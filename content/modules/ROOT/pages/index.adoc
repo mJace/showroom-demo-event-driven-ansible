@@ -569,11 +569,11 @@ image:https://hackmd.io/_uploads/SJBulFYJ6.png[]
 |*Action:*
 
 [On Bastion or your VScode terminal] Install Gemini-CLI
-1. Install Node.JS
-[source,bash]
+Install Node.JS
+[source,shell]
 ----
 # Download and install nvm:
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh \| bash
 # in lieu of restarting the shell
 \. "$HOME/.nvm/nvm.sh"
 # Download and install Node.js:
@@ -587,13 +587,13 @@ nvm current # Should print "v22.17.1".
 npm -v # Should print "10.9.2".
 ----
 
-2. Install Gemini-CLI
+Install Gemini-CLI
 [source,shell]
 ----
 npm install -g @google/gemini-cli
 ----
 
-3. Get your API-Key
+Get your API-Key
 https://aistudio.google.com/app/apikey
 image:https://hackmd.io/_uploads/Hk-hX7kPgg.png[]
 [source,shell]
@@ -602,7 +602,7 @@ export GEMINI_API_KEY="<你的API-KEY>"
 echo 'export GEMINI_API_KEY="<你的API-KEY>"' >> ~/.bashrc
 ----
 
-4. Edit Gemini setting
+Edit Gemini setting
 [source,shell]
 ----
 mkdir .gemini
