@@ -498,7 +498,7 @@ image:https://hackmd.io/_uploads/r1kndxmOel.png[]
 
 |{counter:srn}|
 [.text-justify]
-我們可以部屬一個新的應用程式，並故意讓它的健康狀態變成 Unhealthy，這樣就可以觸發 EDA 的 Rulebook。
+我們可以部屬一個新的應用程式，並故意讓它的健康狀態變成 Unhealthy,這樣就可以觸發 EDA 的 Rulebook。
 |*Action:*
 [.text-justify]
 
@@ -562,9 +562,10 @@ image:https://hackmd.io/_uploads/HkHPeYY16.png[]
 
 image:https://hackmd.io/_uploads/SJBulFYJ6.png[]
 
+
 |{counter:srn}|
 [.text-justify]
-接下來我們要實作透過EDA串接Gemini AI，讓EDA能夠在事件發生時，透過Gemini AI來回應。
+接下來我們要實作透過EDA串接Gemini AI,讓EDA能夠在事件發生時,透過Gemini AI來回應。
 |*Action:*
 
 [On Bastion or your VScode terminal] Install Gemini-CLI
