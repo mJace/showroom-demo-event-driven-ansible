@@ -593,6 +593,36 @@ npm -v # Should print "10.9.2".
 npm install -g @google/gemini-cli
 ----
 
+3. Get your API-Key
+https://aistudio.google.com/app/apikey
+image:https://hackmd.io/_uploads/Hk-hX7kPgg.png[]
+[source,shell]
+----
+export GEMINI_API_KEY="<你的API-KEY>"
+echo 'export GEMINI_API_KEY="<你的API-KEY>"' >> ~/.bashrc
+----
+
+4. Edit Gemini setting
+[source,shell]
+----
+mkdir .gemini
+vi ~/.gemini/settings.json
+
+{
+  "theme": "GitHub",
+  "mcpServers": {
+    "kubernetes": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "rh-tam-kubernetes-mcp-server@latest"
+      ]
+    }
+  }
+}
+----
+
+
 
 |====
 
