@@ -97,6 +97,8 @@ image::event_driven_ansible_architecture.jpg[Event-Driven Ansible Architecture, 
 
 |{counter:srn}|
 [.text-justify]
+=== Lab 1 - EDA apply resource quota on namespace
+[.text-justify]
 In order to show demo, We need to open couple of browser tabs for-
 
 * Vscode server 
@@ -229,6 +231,8 @@ oc get resourcequota -n rocketchat
 
 |{counter:srn}|
 [.text-justify]
+=== Lab 2 - EDA create volume snapshot on pvc
+[.text-justify]
 In order to trigger a create volume snapshot of newly added pvc by Event-driven ansible event.
 
 [.text-justify]
@@ -274,6 +278,8 @@ oc get volumesnapshot -n rocketchat
 |{counter:srn}|
 
 [.text-justify]
+=== Lab 3 - EDA patch route with cert
+[.text-justify]
 In order to trigger a patch route of newly added route by Event-driven ansible event.
 [.text-justify]
 We go to the terminal and make sure we are still in the test-events directory which contains three yaml files of OpenShift object definition.
@@ -316,6 +322,8 @@ oc get route -n rocketchat -o yaml \| grep cert-manager
 
 
 |{counter:srn}|
+[.text-justify]
+=== Lab 4 - EDA oc adm inspect
 [.text-justify]
 我們現在將建立一個新任務，讓 Event-driven Ansible 能夠觸發新的動作。
 當發生警告（Warning）或非健康（Unhealthy）事件時，將觸發 EDA 去收集一份 inspect 檔案，以供後續調查使用。
@@ -450,7 +458,7 @@ Edit oc-inspect.yml with following
     - sabre1041.eda.k8s:
         api_version: v1
         kind: Event
-        namespace: jace #自行替換成新預計的ns名稱
+        namespace: eda-demo #自行替換成新預計的ns名稱
   rules:
     - name: Debug
       condition: 
@@ -504,7 +512,7 @@ image:https://hackmd.io/_uploads/r1kndxmOel.png[]
 
 On you VScode terminal, create a new project and deploy a pod with liveness probe.
 ```
-oc new-project jace
+oc new-project eda-demo
 ```
 
 ```
@@ -565,7 +573,9 @@ image:https://hackmd.io/_uploads/SJBulFYJ6.png[]
 
 |{counter:srn}|
 [.text-justify]
-接下來我們要實作透過EDA串接Gemini AI,讓EDA能夠在事件發生時,透過Gemini AI來回應。
+=== Lab 5 - EDA Gemini AI
+[.text-justify]
+接下來我們要實作透過EDA串接Gemini AI,讓EDA能夠在事件發生時,透過Gemini AI來分析問題。
 |*Action:*
 
 [On Bastion or your VScode terminal] Install Gemini-CLI
@@ -622,6 +632,308 @@ vi ~/.gemini/settings.json
 }
 ----
 
+|{counter:srn}|
+[.text-justify]
+Bastion安裝完成後,我們要在EDA的Playbook中加入Gemini的API呼叫。讓Gemini能夠在EDA觸發時分析指定namespace的問題。
+|*Action:*
+
+於VScode 專案路徑event-driven-ansible/automation_controller底下新增`gemini-analyze.yml`
+image:https://hackmd.io/_uploads/HkH_J-QOeg.png[]
+
+
+[source,shell]
+----
+- name: Run gemini to troubleshoot given NS
+  hosts: bastion
+  gather_facts: no
+  vars:
+    ns: "{{ ansible_eda.event.resource.metadata.namespace }}"
+
+  tasks:
+    - name: Gemini analyze NS
+      shell: 'gemini -p "分析目前OpenShift內namespace {{ ns }} 有什麼異常 (只需要重點整理，不顯示推論過程)"'
+      register: lsout
+    - name: Show command output
+      debug:
+        var: lsout.stdout_lines
+----
+
+於Vscode termial
+[source,shell]
+---
+cd ~/event-driven-ansible
+git add *
+git commit -am "Add gemini_analyze playbook"
+git push
+---
+
+Resync Templete project
+image:https://hackmd.io/_uploads/rJy1Rg7dgl.png[]
+
+Create a new Template called gemini-analyze
+image:https://hackmd.io/_uploads/SkO-AeXdxg.png[]
+
+image:https://hackmd.io/_uploads/SkoBlZ7_lx.jpg[]
+
+|{counter:srn}|
+[.text-justify]
+編寫Rulebook (設定觸發後搜集oc inspect並讓gemini分析問題)
+|*Action:*
+於VScode 專案路徑eda-ruleboos/ruleboos底下新增`oc-inspce-analyze.yml`
+image:https://hackmd.io/_uploads/rkpchxXuel.png[]
+
+[source,shell]
+----
+---
+- name: Listen for unhealthy+warning event
+  hosts: all
+  sources:
+    - sabre1041.eda.k8s:
+        api_version: v1
+        kind: Event
+        namespace: eda-demo #自行替換成新預計的ns名稱
+  rules:
+    - name: Debug
+      condition: 
+        event.resource.reason == "Unhealthy" and event.resource.type == "Warning"
+      throttle:
+        once_within: 5 minutes
+        group_by_attributes:
+          - event.resource.metadata.namespace
+          - event.resource.involvedObject.name
+      actions:
+        - run_job_template:
+            name: oc-inspect #必須對應AAP內的template 名稱
+            organization: Default
+        - run_job_template:
+            name: gemini-analyze
+            organization: Default
+----
+
+
+[source,shell]
+----
+cd ~/eda-rulebooks
+git add *
+git commit -am "add inspect_analyze rulebook"
+git push
+----
+
+Sync-Rulebook project again
+
+image:https://hackmd.io/_uploads/rkQ4uemdlg.png[]
+
+Create new rule activecation
+image:https://hackmd.io/_uploads/HJt_b-7uxg.png[]
+
+image:https://hackmd.io/_uploads/SkZ0WW7dll.jpg[]
+
+You should see this new rule is activated
+image:https://hackmd.io/_uploads/rJs-fWQugg.png[]
+
+
+Disable the previous role - oc-inspce
+
+image:https://hackmd.io/_uploads/rJn_XbmOgl.png[]
+image:https://hackmd.io/_uploads/Bky5XbX_eg.jpg[]
+
+
+Let's deploy the pod again to trigger the event.
+[source,shell]
+----
+oc delete pod liveness-exec --force
+
+cat << EOF \| oc apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: liveness
+    securityContext:
+      allowPrivilegeEscalation: false
+      seccompProfile:
+        type: RuntimeDefault
+      capabilities:
+        drop:
+        - ALL
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    image: k8s.gcr.io/busybox
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+EOF
+----
+
+After a while, you should see the job inspect and gemini-analyze was triggered in a role.
+image:https://hackmd.io/_uploads/Sk1pmbQdex.png[]
+
+image:https://hackmd.io/_uploads/BkRzVXQdlg.jpg[]
+
+
+|{counter:srn}|
+[.text-justify]
+=== Lab 6 - EDA Gemini AI 總結問題並 create support case
+|*Action:*
+
+設定環境 
+- 取得 Red Hat API Tokens
+- 設定 bastion 環境
+[source,shell]
+----
+echo 'export RH_PORTAL_TOKEN="<你的RH-API-TOKEN>"' >> ~/.bashrc
+----
+
+創建 playbook
+- 創建 automation_controller/oc-inspect-create-case.yml 
+[source,shell]
+----
+- name: Run gemini to troubleshoot given NS
+  hosts: bastion
+  gather_facts: no
+  vars:
+    ns: "{{ ansible_eda.event.resource.metadata.namespace }}"
+
+  tasks:
+    - name: Create inspect file
+      shell:
+         "oc adm inspect ns/{{ ns }} --dest-dir=./inspect.local.{{ ns }} --kubeconfig /home/lab-user/.kube/config"
+      register: inspect_file
+    - name: Compress with tar
+      command: "tar -czf inspect.local.{{ ns }}.tar.gz inspect.local.{{ ns }}"
+      when: inspect_file.rc == 0
+    - name: Gemini analyze NS
+      shell: 'gemini -p "分析目前OpenShift內namespace {{ ns }} 有什麼異常 (只需要單行重點整理，不顯示推論過程)"'
+      register: lsout
+    - name: Show command output
+      debug:
+        var: lsout.stdout_lines
+    - name: create support case
+      shell: 'gemini -p "開一個 OCP support case, 標題是[test case] My pod crashed last night, I was wondering about RCA, 描述為 {{lsout.stdout_lines}}，並且將檔案 inspect.local.{{ ns }}.tar.gz 上傳為附件"'
+      register: case_output
+    - name: show create case result
+      debug:
+        var: case_output
+----
+
+- sync project 
+image:https://hackmd.io/_uploads/BJYDwHmOll.png[]
+
+- create job template
+image:https://hackmd.io/_uploads/SJqEPB7_le.png[]
+
+創建 rulebook 
+
+- playbook
+
+[source,shell]
+----
+vi ~/eda-rulebooks/rulebooks/oc_inspect_support_case.yml
+
+---
+- name: Listen for unhealthy+warning event
+  hosts: all
+  sources:
+    - sabre1041.eda.k8s:
+        api_version: v1
+        kind: Event
+        namespace: eda-demo #自行替換成新預計的ns名稱
+  rules:
+    - name: Debug
+      condition: 
+        event.resource.reason == "Unhealthy" and event.resource.type == "Warning"
+      throttle:
+        once_within: 5 minutes
+        group_by_attributes:
+          - event.resource.metadata.namespace
+          - event.resource.involvedObject.name
+      actions:
+        - run_job_template:
+            name: oc-inspect-create-case
+            organization: Default
+----
+
+- 上傳
+
+[source,shell]
+----
+cd ~/eda-rulebooks/
+git add .
+git commit -m "add oc inspect create support case rulebook"
+git push
+----
+
+- sync project 
+
+image:https://hackmd.io/_uploads/Sk29wBmOge.png[]
+
+- create rulebook activation
+
+image:https://hackmd.io/_uploads/B13kdBmOgg.png[]
+
+測試
+
+[source,shell]
+----
+oc delete pod liveness-exec --force
+
+cat << EOF \| oc apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: liveness
+    securityContext:
+      allowPrivilegeEscalation: false
+      seccompProfile:
+        type: RuntimeDefault
+      capabilities:
+        drop:
+        - ALL
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    image: k8s.gcr.io/busybox
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+EOF
+----
+
+image:https://hackmd.io/_uploads/H1xpbI7dxx.png[]
 
 
 |====
