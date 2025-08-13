@@ -79,7 +79,7 @@ rulebook 是我們的策略藍圖，由三個基本組成部分構成：
 image::event_driven_ansible_architecture.jpg[Event-Driven Ansible Architecture, 50%]
 
 
-=== Say Do
+=== Demo 指南
 
 .Demo 指南
 [width=100%,cols="^.5%,30%a,65%a",options="header"]
