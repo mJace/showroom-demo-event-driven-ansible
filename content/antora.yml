@@ -8,7 +8,7 @@ asciidoc:
     release-version: master
     page-pagination: true
     numbered:
-    lab_name: "Event Driven Ansible with OpenShift Demo"
+    lab_name: "2025 Red Hat TAM Day @Taiwan"
 
   page-links:
   - url: https://redhat.com

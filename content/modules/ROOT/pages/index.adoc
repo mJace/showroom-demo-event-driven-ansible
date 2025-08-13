@@ -6,14 +6,7 @@
 
 
 [.text-justify]
-== Demo Platform (demo.redhat.com)
-
-=== Catalog Item
-* link:https://demo.redhat.com/catalog?search=event+driven&item=babylon-catalog-prod%2Fenterprise.event-driven-ansible.prod[Launch the Demo by accessing the Catalog Item in RHDP]
-
-=== Demo Access
-Upon ordering the demo environment, you will gain comprehensive access to a fully-fledged interface that hosts all the systems you can utilize. Pay close attention to how specific values populate as your new environment activates and transitions to operational status. Here is an illustrative example for your reference:
-
+== 事件驅動的智慧維運 實機工作坊
 
 image::demo_access_details.png[Access Details, 60%]
 
@@ -21,65 +14,63 @@ image::demo_access_details.png[Access Details, 60%]
 
 === Demo Introduction
 
-In this demo, we're showcasing the adaptability and effectiveness of Event-Driven Ansible. While we are utilizing Red Hat OpenShift events as a trigger, remember to highlight that this tool's capabilities aren't limited to just OpenShift - it's designed to work effectively with any operational ecosystem your customer may have.
+在本次示範中，我們將展示 Event-Driven Ansible 的適應性與高效性。雖然這裡使用的是 OpenShift 事件作為觸發條件，但請務必強調，這項工具的能力並不侷限於 OpenShift，它的設計能夠有效運作於任何客戶所擁有的營運生態系統。
 
-Showcase how Event-Driven Ansible can use events to initiate actions, demonstrating its ability to turn any event into an opportunity for intelligent automation. This isn't just automation; it's an efficient, event-driven response system that's compatible with any operational ecosystem.
+展示 Event-Driven Ansible 如何利用事件來啟動動作，說明它能將任何事件轉化為智慧化自動化的契機。這不只是自動化，而是一套高效率、以事件驅動的回應系統，並能與任何營運環境相容。
 
-Use real-world examples to illustrate how this tool can enhance their processes, making them more efficient, faster, and responsive. By the end of this demonstration, your customers should understand the competitive advantage and agility that adopting Event-Driven Ansible can bring to their operations in today's rapidly evolving digital landscape.
+透過真實案例，說明此工具如何優化流程，使其更高效、更快速且更具回應性。到示範結束時，客戶應能理解，在當今快速演變的數位環境中，採用 Event-Driven Ansible 能為營運帶來的競爭優勢與敏捷性。
 
 
 === The Power of Event-Driven Ansible
-Event-Driven Ansible offers an amalgamation of Ansible's versatility and the principles of event-driven architecture, making it a significant asset for any operational ecosystem.
+Event-Driven Ansible 融合了 Ansible 的多功能性與事件驅動架構的原則，使其成為任何營運生態系統的重要資產。
 
-In this demo, you will discover how Event-Driven Ansible can manage not just application deployments and scaling operations but also be utilized for daily tasks and swift troubleshooting. This platform efficiently transforms automation into a quick, proactive response mechanism across the entire ecosystem, which is tailored for your customer's specific business needs.
+在此示範中，您將會了解 Event-Driven Ansible 如何不僅能管理應用程式部署與擴充，還能用於日常任務和快速疑難排解。這個平台能將自動化高效地轉變為涵蓋整個生態系統的快速、主動回應機制，並可根據客戶特定的業務需求進行調整。
 
-By leveraging Event-Driven Ansible, you can significantly enhance your customer's infrastructure recovery time. Whenever an issue arises, the system automatically triggers a predefined response, reducing the time spent manually diagnosing and resolving the problem. This automation not only speeds up recovery but also minimizes the risk of human error during the troubleshooting process.
+透過運用 Event-Driven Ansible，您可以顯著提升客戶的基礎設施復原時間。每當問題發生時，系統會自動觸發預定義的回應，減少手動診斷和解決問題所花費的時間。這種自動化不僅加速復原，也將疑難排解過程中因人為錯誤所帶來的風險降至最低。
 
-Additionally, Event-Driven Ansible also helps streamline and automate routine tasks. This allows your customer to focus on strategic initiatives rather than getting bogged down in day-to-day operations. Tasks like system updates, user management, and routine maintenance can be automated, saving valuable time and resources.
+此外，Event-Driven Ansible 也能幫助簡化並自動化常規任務。這讓您的客戶能夠專注於策略性專案，而不被日常營運所拖累。舉凡系統更新、使用者管理和日常維護等任務都能自動化，從而節省寶貴的時間與資源。
 
-During the demonstration, you'll provide a clear understanding of how Event-Driven Ansible helps achieve efficient, intelligent, and responsive automation. This not only helps in rapid issue resolution and infrastructure recovery but also in efficiently managing daily operations. By showcasing these capabilities, you can highlight the extensive benefits and potential applications of Event-Driven Ansible in their organization, thereby enhancing their operational efficiency and productivity.
-
-=== Source Page
-* link:https://source.redhat.com/groups/public/rhdp/rhdp_catalog_items/catalog_items_wiki/event_driven_ansible_with_openshift_demo[Click to Access Event-driven Ansible with OpenShift Demo Source Page]
+在示範期間，您將提供一個清晰的理解，說明 Event-Driven Ansible 如何幫助實現高效、智慧且具回應性的自動化。這不僅有助於快速解決問題與基礎設施復原，也能有效地管理日常營運。藉由展示這些能力，您可以強調 Event-Driven Ansible 在其組織中廣泛的好處與潛在應用，進而提升其營運效率與生產力。
 
 
 == Understanding Rulebooks
 
 === The Backbone of Event Driven Ansible
-Central to our demonstration today are *'Rulebooks.'* In the context of Event-Driven Ansible, a rulebook defines the guidelines that Ansible should follow in response to particular events or conditions. 
 
-A rulebook is our strategic playbook, constituted of three fundamental components:
+*'Rulebooks'* 是我們今天示範的核心。在 Event-Driven Ansible 的情境中，rulebook 定義了 Ansible 應該如何回應特定事件或狀況的準則。
 
-* *Sources:* The starting point of our automation journey, sources determine the event source we're utilizing. These are drawn from a plethora of source plugins, crafted to cater to a variety of use cases. As we continue to expand our portfolio, more sources will become available. As of now, we have several ready-to-use plugins, including webhooks, Kafka, Azure service bus, file changes, and alertmanager.
+rulebook 是我們的策略藍圖，由三個基本組成部分構成：
 
-* *Rules:* Acting as the decision makers, rules set the conditions we're looking for within the chosen event source. If a condition is met, it can trigger a subsequent action, forming a critical link in our automation chain.
+* *Sources:* Rulebook 自動化流程的起點是 sources，用於定義我們所使用的事件來源。這些來源取自各種來源外掛程式 (source plugins)，專為應對各式使用情境所打造。隨著我們持續擴展產品組合，將會有更多來源可供選擇。目前，我們已有多個隨時可用的外掛程式，包括 webhooks、Kafka、Azure service bus、檔案變更監控，以及 alertmanager。
 
-* *Actions:* The culmination of our process, actions decide what should transpire once a condition is fulfilled. A variety of actions are currently available, such as run_playbook, run_module, set_fact, post_event, and debug.
+* *Rules:* 擔任決策者的角色，rules 負責設定我們在選定的事件來源中尋找的條件。如果某個條件被滿足，它就能觸發後續的動作，在我們的自動化鏈中形成關鍵的連結。
 
-This rulebook, therefore, provides a comprehensive, customizable, and extensible blueprint for your automation processes, ensuring we cover the full spectrum from event sources to reactive actions.
+* *Actions:* 這項流程的最終環節，actions 決定了當條件滿足時應執行的動作。目前可用的動作類型多樣，例如 run_playbook、run_module、set_fact、post_event 與 debug。
+
+因此，這份 rulebook 為您的自動化流程提供了全面、可客製化且可擴充的藍圖，確保我們涵蓋了從事件來源到回應動作的整個環節。
 
 === The Business Benefits of Event-Driven Ansible
-In the course of this demo, we will delve into the manifold business benefits you can achieve by implementing Event-Driven Ansible:
+在本次示範中，我們將深入探討導入 Event-Driven Ansible 後，您可以實現的眾多業務效益：
 
-*Real-Time Responsiveness:* Automate responses to events, leading to quicker issue resolution and optimized resource utilization.
+*Real-Time Responsiveness:* 自動化回應事件，進而實現更快速的問題解決與更佳的資源利用率。
 
-* *Increased Efficiency:* Reduce manual tasks, minimize errors, and bolster operational productivity.
+* *Increased Efficiency:* 減少手動任務、降低錯誤，並提升營運生產力。
 
-* *Scalability and Flexibility:* Expand your automation capabilities in sync with your infrastructure, enabling a seamless adaptation to changing environments.
+* *Scalability and Flexibility:* 拓展您的自動化能力，使其與您的基礎設施同步，實現對多變環境的無縫適應。
 
-* *Intelligent Automation:* Utilize event data to make informed decisions, thereby optimizing resource usage.
+* *Intelligent Automation:* 利用事件資料做出明智的決策，從而最佳化資源使用。
 
-* *Enhanced Reliability:* Ensure consistent and accurate task execution, thus reducing risks associated with human error.
+* *Enhanced Reliability:* 確保任務執行的一致性與準確性，從而降低與人為錯誤相關的風險。
 
-* *Improved Compliance and Governance:* Enforce standards, track automated actions, and demonstrate compliance.
+* *Improved Compliance and Governance:* 強制執行標準、追蹤自動化動作，並證明其合規性。
 
-* *Rapid Innovation and Time-to-Market:* Accelerate service delivery and application deployment to respond more swiftly to market trends.
+* *Rapid Innovation and Time-to-Market:* 加速服務交付與應用程式部署，以更迅速地回應市場趨勢。
 
-Integration with Existing Systems: Seamlessly integrate with your existing tools, systems, and APIs.
+與既有系統整合：與您現有的工具、系統及 API 進行無縫整合。
 
 === Conclusion: The Transformative Potential of Event-Driven Ansible
 
-In this demonstration, you will see how Event-Driven Ansible serves as a catalyst, unlocking unprecedented levels of automation that boost efficiency, scalability, and reliability across any operational environment. So, gear up for a deep dive into the next generation of automation technology.
+本次示範中，您將會看到 Event-Driven Ansible 如何作為催化劑，釋放前所未有的自動化潛力，在任何營運環境中提升效率、擴展性與可靠性。現在，準備好深入探索下一世代的自動化技術吧。
 
 == Architecture
 
@@ -99,7 +90,7 @@ image::event_driven_ansible_architecture.jpg[Event-Driven Ansible Architecture, 
 [.text-justify]
 === Lab 1 - EDA apply resource quota on namespace
 [.text-justify]
-In order to show demo, We need to open couple of browser tabs for-
+若要進行示範，我們需要開啟數個瀏覽器分頁，分別用於：-
 
 * Vscode server 
 * Ansible Automation Platform
@@ -112,21 +103,21 @@ In order to show demo, We need to open couple of browser tabs for-
 
 |*Action:*
 [.text-justify]
-.  Go to the info page click on VScode server link, use password provided in the table to login. 
+.  請前往資訊頁面，點擊 VS Code Server 連結，並使用表格中提供的密碼登入。
 
 +
 image:vscode_login.jpg[VScode Login page, 95%]
 
-.  Go to info page click on Ansible Automation Platform link, use username and password provided in the table to login. 
+.  請前往資訊頁面，點擊 Ansible Automation Platform 連結，並使用表格中提供的帳號與密碼登入。
 
 +
-NOTE: Sometimes copying and pasting the password may not work. If you're unable to log in, try typing the password manually, character by character, as this might resolve the issue.
+NOTE: 有時候直接複製貼上密碼可能無法成功。如果您無法登入，請嘗試手動逐字輸入密碼，這或許能解決問題。
 
 +
 image:ac_login.jpg[Automation Controller Login page, 95%]
 
 
-.  [Optionally] Go to info page click on OpenShift Console  link, use username and password provided in the table to login. 
+.  [Optionally] 請前往資訊頁面，點擊 OpenShift Console 連結，並使用表格中提供的帳號與密碼登入。
 +
 .Click htpasswd_provider
 image:oc_login_1.jpg[OpenShift Login page, 95%]
@@ -138,51 +129,51 @@ image:oc_login_2.jpg[OpenShift Login page, 95%]
 
 |{counter:srn}|
 [.text-justify]
-Log in to the Ansible Automation Platform to monitor jobs and triggered events.
+登入 Ansible Automation Platform 以監控工作和觸發的事件。
 |*Action:*
 [.text-justify]
-.  Go to the Automation Execution (Automation Controller) and click on jobs. Jobs section will show all triggered job templates status by the Event-driven Ansible.
+.  請前往「自動化執行 (Automation Controller)」，點擊「工作 (Jobs)」。工作區段將顯示由 Event-driven Ansible 觸發的所有工作範本狀態。
 +
 image:ac_jobs.jpg[Automation Controller Jobs, 95%]
 
 
-.  Go to the Automation Decision (Event Driven Aansible) and click on Rulebook Activations . The Rulebook Activations section shows all Rulebook Activations.
+.  請前往「自動化決策 (Event Driven Ansible)」，點擊「Rulebook 啟用 (Rulebook Activations)」。此區段將顯示所有 Rulebook 的啟用狀態。
 +
 image:eda_rulebook_activations_v2.png[Event-Driven Ansible Controller Rulebooks, 95%]
 
 
 |{counter:srn}|
 [.text-justify]
-Prepare VScode server console to create openshift resources and trigger Event-driven Ansible rulebooks.
+為了準備 VS Code Server 主控台來建立 OpenShift 資源並觸發 Event-driven Ansible rulebooks，請執行以下操作：
 
 |*Action:*
 [.text-justify]
-.  Go back to the VScode server console and open a terminal.
+.  請回到 VS Code Server 主控台並開啟一個終端機。
 +
 image:vscode_login_terminal.jpg[VScode terminal, 95%]
 
 |{counter:srn}|
 [.text-justify]
-In order to trigger a set resource quota on a new namespace (rocketchat) by Event-driven ansible event.
+為了透過 Event-driven Ansible 事件，針對新的命名空間（rocketchat）觸發設定資源配額，請遵循以下步驟：
 
 [.text-justify]
-We goto integrated terminal of vscode server then change to test-events directory. This directory contains three yaml files which contain OpenShift object definition.
+接下來，我們前往 VS Code Server 的整合式終端機，然後切換到 test-events 目錄。這個目錄中包含了三個 YAML 檔案，它們定義了 OpenShift 物件。
 
 [.text-justify]
-To trigger set resource quota, we run oc command with 1-test-resource-quota-on-namespace.yml file which creates rocketchat namespace  in  OpenShift. 
+為了觸發資源配額設定，我們將使用 oc 指令搭配 1-test-resource-quota-on-namespace.yml 檔案，在 OpenShift 中建立 rocketchat 命名空間。
 
 [.text-justify]
-New namespace creation will eventually trigger a set resource quota event. As an action for the event it will set resource quota on created rocketchat namespace.
+命名空間建立最終將觸發一個「設定資源配額」事件。作為此事件的動作，它將會在已建立的 rocketchat 命名空間上設定資源配額。
  
 [.text-justify]
-To observe, we can check Automation Decision (Event Driven Aansible) Rulebook Activate and Automation Execution (Automation Controller) jobs.
+為了觀察結果，我們可以檢查「自動化決策 (Event Driven Ansible)」中的 Rulebook 啟用狀態，以及「自動化執行 (Automation Controller)」中的工作。
 
 [.text-justify]
-To verify the changes run OpenShift oc command line to check resource quota on created rocketchat namespace. 
+您可以執行 OpenShift 的 oc 命令列工具，來驗證 rocketchat 命名空間上的資源配額變更。
 
 |*Action:*
 [.text-justify]
-.  Go to the vscode integrated terminal, Change the directory and run oc command to create  namespace (rocketchat) which will eventually trigger the event.
+.  請前往 VS Code 整合式終端機，切換目錄並執行 oc 指令，以建立命名空間 rocketchat，此動作最終會觸發事件。
 
 +
 [source,shell]
@@ -196,7 +187,7 @@ image:eda_vscode_terminal.jpg[VScode terminal, 100%]
 
 *Observe:*
 [.text-justify]
-. Observe Automation Decision (Event Driven Aansible) Set Resource Quota On Namespace Rulebook Activation has caught the event for new namespace and triggered the action. 
+. 觀察「自動化決策 (Event Driven Ansible)」中的「設定命名空間資源配額 Rulebook 啟用」，它已經捕捉到新命名空間的事件並觸發了相應的動作。
 
 
 
@@ -214,12 +205,12 @@ image:eda_trigger_1.jpg[Rulebook Trigger, 95%]
 // +
 // image:eda_trigger_3.jpg[Rulebook Trigger, 95%]
 
-. Observe the Automation Execution (Automation Controller) has a new job running.
+. 觀察「自動化執行 (Automation Controller)」，您會看到一個新的工作正在執行。
 +
 image:rq_ac_job.jpg[Automation Controller Job, 95%]
 
 
-. Observe that the new namespace (rocketchat) has a quota set.  Run the following command on the second terminal. 
+. 觀察到新的命名空間 rocketchat 已設定配額。請在第二個終端機中執行以下指令。
 
 +
 [source,shell]
@@ -233,26 +224,26 @@ oc get resourcequota -n rocketchat
 [.text-justify]
 === Lab 2 - EDA create volume snapshot on pvc
 [.text-justify]
-In order to trigger a create volume snapshot of newly added pvc by Event-driven ansible event.
+為了透過 Event-driven Ansible 事件，針對新加入的 PVC 觸發建立磁碟區快照，請執行以下步驟.
 
 [.text-justify]
-We go to the terminal and make sure we are still in the test-events directory which contains three yaml files of OpenShift object definition.
+請前往終端機，並確認您仍然在 test-events 目錄中。這個目錄包含了三個 OpenShift 物件定義的 YAML 檔案。
 
 [.text-justify]
-To trigger the create volume snapshot, we run oc command with 2-test-volume-snapshot.yml file which creates rocketchat app, database and persistent volume claim in rocketchat namespace.
+為了觸發建立磁碟區快照，我們將使用 oc 指令搭配 2-test-volume-snapshot.yml 檔案，在 rocketchat 命名空間中建立 rocketchat 應用程式、資料庫及持久性磁碟區請求 (PVC)。
 
 [.text-justify]
-New persistent volume claim creation will eventually trigger a create volume snapshot event. As an action for the event it will create a snapshot of the persistentvolumeclaim in the  rocketchat namespace.
+新建立的persistentvolumeclaim (PVC) 最終將會觸發「建立磁碟區快照」事件。作為此事件的動作，它會在 rocketchat 命名空間中為該persistentvolumeclaim建立一個快照。
  
 [.text-justify]
-To observe, we can check Automation Decision (Event Driven Aansible) Rulebook Activate and Automation Execution (Automation Controller) jobs.
+為了觀察結果，我們可以檢查「自動化決策 (Event Driven Ansible)」中的 Rulebook 啟用狀態，以及「自動化執行 (Automation Controller)」中的工作。
 
 [.text-justify]
-To verify the changes run OpenShift oc command to get the volume snapshot list in  rocketchat namespace. 
+為了驗證變更，請執行 OpenShift oc 指令，以取得 rocketchat 命名空間中的磁碟區快照列表。
 
 |*Action:*
 [.text-justify]
-.  Go to the VScode terminal, Change the directory and run oc command to create  the rocketchat application in the rocketchat namespace which will eventually trigger the event.
+.  請前往 VS Code 終端機，切換目錄並執行 oc 指令，在 rocketchat 命名空間中建立 rocketchat 應用程式，此動作最終會觸發事件。
 +
 [source,shell]
 ----
@@ -263,11 +254,11 @@ oc create -f 2-test-volume-snapshot.yml
 
 *Observe:*
 [.text-justify]
-.   Observe Automation Decision (Event Driven Aansible) Create Volume Snapshot Rulebook Activation has caught the event for new persistentvolumeclaim which triggered the action.
+.   觀察 Automation Decision (Event Driven Ansible) 中的 Create Volume Snapshot Rulebook Activation，它已捕捉到新 persistentvolumeclaim 的事件並觸發了相應的動作。
 
-.  Observe the Automation Execution (Automation Controller) has a new job running.
+.  觀察 Automation Execution (Automation Controller)，您會看到一個新的 job 正在執行。
 
-.  Observe that the new persistentvolumeclaim has a screenshot  in rocketchat namespace.  Run the following command on the second terminal. 
+.  觀察到新的 persistentvolumeclaim 在 rocketchat namespace 中已建立 snapshot。請在第二個 terminal 中執行以下指令。
 +
 [source,shell]
 ----
@@ -280,23 +271,23 @@ oc get volumesnapshot -n rocketchat
 [.text-justify]
 === Lab 3 - EDA patch route with cert
 [.text-justify]
-In order to trigger a patch route of newly added route by Event-driven ansible event.
+為了透過 Event-driven Ansible 事件，針對新加入的 route 觸發 patch，請執行以下操作：
 [.text-justify]
-We go to the terminal and make sure we are still in the test-events directory which contains three yaml files of OpenShift object definition.
+請前往 terminal，並確保您仍在 test-events 目錄中，此目錄包含了三個定義 OpenShift 物件的 YAML 檔案。
 [.text-justify]
-To trigger the patch route, we run oc command with 3-test-route-with-cert.yml file which creates route for rocketchat app in rocketchat namespace.
+為了觸發 patch route，我們將使用 oc 指令搭配 3-test-route-with-cert.yml 檔案，在 rocketchat namespace 中為 rocketchat 應用程式建立一個 route。
 [.text-justify]
-New route creation will eventually trigger a patch route event. As an action for the event it will patch the route with a signed certificate in the  rocketchat namespace.
+新建立的 route 最終將會觸發一個 patch route 事件。作為此事件的 action，它會使用已簽署的憑證來對 rocketchat namespace 中的該 route 進行 patch。
 [.text-justify]
-To observe, we can check Automation Decision (Event Driven Aansible) Rulebook Activate history and Automation Execution (Automation Controller) jobs.
+為了觀察結果，我們可以檢查 Automation Decision (Event Driven Ansible) 中的 Rulebook Activate 歷史記錄，以及 Automation Execution (Automation Controller) 中的 jobs。
 
 [.text-justify]
-To verify the changes run OpenShift oc command to get the route in rocketchat namespace. 
+為了驗證變更，請執行 OpenShift oc 指令，以取得 rocketchat namespace 中的 route。
 
 
 |*Action:*
 [.text-justify]
-.  Go to the VScode terminal, Change the directory and run oc command to create the route for rocketchat application in the rocketchat namespace which will eventually trigger the event.
+.  請前往 VS Code terminal，切換目錄並執行 oc 指令，在 rocketchat namespace 中為 rocketchat 應用程式建立 route，此動作最終會觸發事件。
 
 +
 [source,shell]
@@ -308,11 +299,11 @@ oc create -f 3-test-route-with-cert.yml
 
 *Observe:* 
 [.text-justify]
-. Observe Automation Decision (Event Driven Aansible) Patch Route With Cert Rulebook Activation has caught the event for the new route and triggered the action.
+. 觀察 Automation Decision (Event Driven Ansible) 中的 Patch Route With Cert Rulebook Activation，它已捕捉到新 route 的事件並觸發了相應的 action。
 
-. Observe the Automation Execution (Automation Controller) has a new job running.
+. 觀察 Automation Execution (Automation Controller)，您會看到一個新的 job 正在執行。
 
-. Observe that the new route has been patched  with a certificate.  Run the following command on the terminal.
+. 觀察到新的 route 已經使用憑證進行了 patch。請在 terminal 上執行以下指令。
 
 +
 [source,shell]
@@ -333,7 +324,7 @@ oc get route -n rocketchat -o yaml \| grep cert-manager
 
 |*Action:*
 [.text-justify]
-Create a new inventory in Ansible Automation Platform (AAP) to add the machine that will execute the oc commands. 
+要在 Ansible Automation Platform (AAP) 中建立一個新的 inventory，以新增執行 oc 指令的機器，請按照以下步驟操作：
 
 image:aap_add_inventory.jpg[Create Inventory, 95%]
 
@@ -515,8 +506,9 @@ On you VScode terminal, create a new project and deploy a pod with liveness prob
 oc new-project eda-demo
 ```
 
-```
-vim pod-liveness.yml
+[source,shell]
+----
+cat << EOF \| oc apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -552,12 +544,8 @@ spec:
         - /tmp/healthy
       initialDelaySeconds: 5
       periodSeconds: 5
-```
-
-```bash=
-oc create -f pod-liveness.yml
-```
-
+EOF
+----
 
 image:https://hackmd.io/_uploads/ryGBC_typ.png[]
 
@@ -732,7 +720,7 @@ You should see this new rule is activated
 image:https://hackmd.io/_uploads/rJs-fWQugg.png[]
 
 
-Disable the previous role - oc-inspce
+Disable the previous role - oc-inspcet
 
 image:https://hackmd.io/_uploads/rJn_XbmOgl.png[]
 image:https://hackmd.io/_uploads/Bky5XbX_eg.jpg[]
