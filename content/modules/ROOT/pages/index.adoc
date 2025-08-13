@@ -81,7 +81,7 @@ image::event_driven_ansible_architecture.jpg[Event-Driven Ansible Architecture, 
 
 === Say Do
 
-.Trigger Events
+.Demo 指南
 [width=100%,cols="^.5%,30%a,65%a",options="header"]
 |====
 | SR No ^.^| Say ^.^| Do
@@ -552,7 +552,7 @@ image:https://hackmd.io/_uploads/ryGBC_typ.png[]
 image:https://hackmd.io/_uploads/rkbtCOKy6.png[]
 
 
-驗證inspect是否成功
+等待40秒後，驗證inspect是否成功
 
 image:https://hackmd.io/_uploads/HkHPeYY16.png[]
 
@@ -578,11 +578,11 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh \| bash
 nvm install 22
 
 # Verify the Node.js version:
-node -v # Should print "v22.17.1".
-nvm current # Should print "v22.17.1".
+node -v 
+nvm current 
 
 # Verify npm version:
-npm -v # Should print "10.9.2".
+npm -v 
 ----
 
 Install Gemini-CLI
@@ -926,21 +926,8 @@ image:https://hackmd.io/_uploads/H1xpbI7dxx.png[]
 
 |====
 
-== Troubleshooting
+== Resources
 
-=== Source Code
-* Rulebook/Playbook Repository
-** link:https://github.com/redhat-gpte-devopsautomation/demo-event-driven-ansible[Event Driven Ansible Provision Repository]
-
-* Custom Event-Driven Plugin
-** link:https://github.com/sabre1041/sabre1041.eda[sabre1041.eda.k8s]
-
-* Decision Environment 
-** link:https://github.com/miteshget/eda-de[Build Custom Decision Environment (DE)]
-
-=== Help & Support
-* Slack Channel
-** link:https://app.slack.com/client/E030G10V24F/C07M6BWRQCF[#event-driven-ansible-with-openshift-demo]
-
-
-
+* Get Red Hat API Token
+** link:https://access.redhat.com/management/api[Get Red Hat API Token]
+https://access.redhat.com/management/api
