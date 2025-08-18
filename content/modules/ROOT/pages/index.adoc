@@ -821,6 +821,16 @@ echo 'export RH_PORTAL_TOKEN="<你的RH-API-TOKEN>"' >> ~/.bashrc
         var: case_output
 ----
 
+- push git project
+
+[source,shell]
+----
+cd ~/event-driven-ansible
+git add *
+git commit -am "playbook for oc adm inspect and create case"
+git push
+----
+
 - sync project 
 image:https://hackmd.io/_uploads/BJYDwHmOll.png[]
 
@@ -923,6 +933,9 @@ EOF
 
 image:https://hackmd.io/_uploads/H1xpbI7dxx.png[]
 
+image::case_created.png[]
+
+- 最後，請記得將 Pod 刪除以及將 Case 關閉，避免持續重複開 Case 以及 Gemini API 使用超過日額。 
 
 |====
 
