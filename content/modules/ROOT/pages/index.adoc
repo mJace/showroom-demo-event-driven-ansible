@@ -827,7 +827,7 @@ echo 'export RH_PORTAL_TOKEN="<你的RH-API-TOKEN>"' >> ~/.bashrc
 ----
 cd ~/event-driven-ansible
 git add *
-git commit -am "playbook for oc adm inspect"
+git commit -am "playbook for oc adm inspect and create case"
 git push
 ----
 
