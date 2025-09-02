@@ -320,6 +320,7 @@ oc get route -n rocketchat -o yaml \| grep cert-manager
 當發生警告（Warning）或非健康（Unhealthy）事件時，將觸發 EDA 去收集一份 inspect 檔案，以供後續調查使用。
 
 首先必須只定一台機器作為執行oc指令的主機，因此需要在AAP加入此機器的相關設定。
+** 如果在上一場workshop中已經建立過bastion主機的Inventory，且名稱為bastion，則可以跳到步驟內的Create Host Group**
 
 
 |*Action:*
@@ -339,6 +340,7 @@ image:https://hackmd.io/_uploads/B1WhGvtJT.png[]
 image:https://hackmd.io/_uploads/H1pIbPY1a.png[]
 
 Create credential for bastion
+**如果在上一場workshop中已經建立過bastion主機的Credential，且名稱為bastion，則可以跳過**
 
 image:https://hackmd.io/_uploads/BJnZUCzOee.jpgp[]
 image:https://hackmd.io/_uploads/SyojI0M_ge.jpg[]
@@ -591,11 +593,15 @@ Install Gemini-CLI
 npm install -g @google/gemini-cli
 ----
 
-Get your API-Key
-https://aistudio.google.com/app/apikey
+上一場Workshop中已經將Gemini-API Key存放在 `~/tamday/.gemini/.env` 內. 
+如果你要使用自己的API-KEY,請前往 
+https://aistudio.google.com/app/apikey 
 image:https://hackmd.io/_uploads/Hk-hX7kPgg.png[]
 [source,shell]
 ----
+
+cat ~/tamday/.gemini/.env \| grep GEMINI_API_KEY
+
 export GEMINI_API_KEY="<你的API-KEY>"
 echo 'export GEMINI_API_KEY="<你的API-KEY>"' >> ~/.bashrc
 ----
