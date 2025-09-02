@@ -479,7 +479,7 @@ VScode will ask you to login to gittea.
 image:https://hackmd.io/_uploads/SkdewgXdlg.png[]
 
 
-*Create Rulebook Activcation in AAP*
+*Create Rulebook Activation in AAP*
 Sync-Rulebook project again
 
 image:https://hackmd.io/_uploads/rkQ4uemdlg.png[]
@@ -646,7 +646,7 @@ image:https://hackmd.io/_uploads/HkH_J-QOeg.png[]
         var: lsout.stdout_lines
 ----
 
-於Vscode termial
+於Vscode Terminal
 [source,shell]
 ---
 cd ~/event-driven-ansible
@@ -655,7 +655,7 @@ git commit -am "Add gemini_analyze playbook"
 git push
 ---
 
-Resync Templete project
+Resync Template project
 image:https://hackmd.io/_uploads/rJy1Rg7dgl.png[]
 
 Create a new Template called gemini-analyze
@@ -667,7 +667,7 @@ image:https://hackmd.io/_uploads/SkoBlZ7_lx.jpg[]
 [.text-justify]
 編寫Rulebook (設定觸發後搜集oc inspect並讓gemini分析問題)
 |*Action:*
-於VScode 專案路徑eda-ruleboos/rulebooks底下新增`oc-inspce-analyze.yml`
+於VScode 專案路徑eda-rulebooks/rulebooks底下新增`oc-inspect-analyze.yml`
 image:https://hackmd.io/_uploads/rkpchxXuel.png[]
 
 [source,shell]
@@ -711,7 +711,7 @@ Sync-Rulebook project again
 
 image:https://hackmd.io/_uploads/rkQ4uemdlg.png[]
 
-Create new rule activecation
+Create new rule activation
 image:https://hackmd.io/_uploads/HJt_b-7uxg.png[]
 
 image:https://hackmd.io/_uploads/SkZ0WW7dll.jpg[]
@@ -720,7 +720,7 @@ You should see this new rule is activated
 image:https://hackmd.io/_uploads/rJs-fWQugg.png[]
 
 
-Disable the previous role - oc-inspcet
+Disable the previous role - oc-inspect
 
 image:https://hackmd.io/_uploads/rJn_XbmOgl.png[]
 image:https://hackmd.io/_uploads/Bky5XbX_eg.jpg[]
