@@ -667,7 +667,7 @@ image:https://hackmd.io/_uploads/SkoBlZ7_lx.jpg[]
 [.text-justify]
 編寫Rulebook (設定觸發後搜集oc inspect並讓gemini分析問題)
 |*Action:*
-於VScode 專案路徑eda-ruleboos/ruleboos底下新增`oc-inspce-analyze.yml`
+於VScode 專案路徑eda-ruleboos/rulebooks底下新增`oc-inspce-analyze.yml`
 image:https://hackmd.io/_uploads/rkpchxXuel.png[]
 
 [source,shell]
