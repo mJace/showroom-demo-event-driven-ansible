@@ -568,7 +568,10 @@ image:https://hackmd.io/_uploads/SJBulFYJ6.png[]
 接下來我們要實作透過EDA串接Gemini AI,讓EDA能夠在事件發生時,透過Gemini AI來分析問題。
 |*Action:*
 
-[On Bastion or your VScode terminal] Install Gemini-CLI
+[On Bastion or your VScode terminal] Install Gemini-CLI 
+
+(如果上一場workshop已經安裝過，可以跳安裝Gemini-CLI以及Node.JS的步驟, 但仍需要設定API-KEY以及MCP Server的設定)
+
 Install Node.JS
 [source,shell]
 ----
