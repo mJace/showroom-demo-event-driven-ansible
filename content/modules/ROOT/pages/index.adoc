@@ -570,7 +570,7 @@ image:https://hackmd.io/_uploads/SJBulFYJ6.png[]
 
 [On Bastion or your VScode terminal] Install Gemini-CLI 
 
-(如果上一場workshop已經安裝過，可以跳安裝Gemini-CLI以及Node.JS的步驟, 但仍需要設定API-KEY以及MCP Server的設定)
+(如果上一場workshop已經安裝過Gemini，請確定目前Gemini-CLI的版本為v0.2.0，如果正確，可以跳過安裝Gemini-CLI以及Node.JS的步驟, 但仍需要設定API-KEY以及MCP Server的設定)
 
 Install Node.JS
 [source,shell]
@@ -593,7 +593,8 @@ npm -v
 Install Gemini-CLI
 [source,shell]
 ----
-npm install -g @google/gemini-cli
+npm install -g @google/gemini-cli@v0.2.0
+gemini --version # Should be 0.2.0
 ----
 
 上一場Workshop中已經將Gemini-API Key存放在 `~/tamday/.gemini/.env` 內. 
